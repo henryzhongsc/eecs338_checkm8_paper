@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[10pt]{article}
 \linespread{1.1}
 \usepackage{setspace}
 \usepackage{amsmath,amssymb, amsthm}
@@ -21,18 +21,18 @@
 \usepackage{subfig}
 \usepackage{subcaption}
 \usepackage{wasysym}
+\newcommand{\inlinecode}{\texttt}
 
 
 \title{\textbf{A Brief Introduction of checkm8} \\
         \large \textbf{-- an unpatchable iOS jailbreaking method\\}}
 
-\author{EECS 380, Dr. Ronald Loui \\ Shaochen (Henry) ZHONG}
-\date{Due and submitted on December 5, 2019}
+\author{Shaochen (Henry) ZHONG}
+\date{Due and submitted on December 5, 2019\\EECS 380, Dr. Ronald Loui}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-    abstract placeholder
 \end{abstract}
 
 
@@ -49,46 +49,77 @@
 
 Jailbreaking -- under the context of iOS -- is an act of gaining superuser access of Apple's mobile/tablet operating system(s). Since Apple retricts such superuser privilege by default, a successful jailbreak is typically performed with exploitations of bugs and system design flaws, known as \textit{privilege escalation}. Through out the history of iOS jailbreaking, there are various successful -- or semi-successful -- jailbreak methods; and the capability of each jailbreak methods also varies depending on their attack methology and Apple's patch. However, the main and common goals of all jailbreak methods are: to bypass the software installation restrictions imposed by Apple; and to utilize previously unavailable lower level portals (e.g. APIs) to collect data and therefore develop features which are impossible to implement under a non-jailbroken device.
 
-\section{checkm8: the overview}
+\section{\inlinecode{checkm8}: the overview}
 
-As many other release of jailbreaking tools, checkm8 is a recently released (Sep 27, 2019) jailbreaking tool developed by axi0mX. While each successful jailbreak method has its pros and cons, the highlights of checkm8 are:
+As many other release of jailbreaking tools, \inlinecode{checkm8} is a recently released (Sep 27, 2019) jailbreaking tool developed by \inlinecode{axi0mX}. While each successful jailbreak method has its pros and cons, the highlights of \inlinecode{checkm8} are:
 \begin{itemize}
-    \item It is upatchable by the nature of the BootROM exploitation, meaning that Apple will never be able to relase patch to invalid the tool.
+    \item It is upatchable by the nature of the BootROM exploitation, meaning that Apple will never be able to release patch to invalid the tool.
     \item It is applicable to a vast generations of iOS devices, from iPhone 4s (A5 chip) to iPhone 8/X (A11 chip). Which means millions of active devices in use today can benefit or be target by this jailbreaking method.
 \end{itemize}
 
 \subsection{The unpatchable nature}
 
-Checkm8 targets the BootROM (a.k.a SecureROM) of iOS devices -- which is a low-level read-only ROM that being utilized during the booting stage of iOS devices. With the bugs that checkm8 exploits and a proper implementation of Heap Feng-shui\footnote{Details refer to \textit{Section 3.3 iBoot and Heap Feng-shui.}}, you can execute any code at the BootROM level, thus carry out a successful jailbreak.
+\inlinecode{checkm8} targets the BootROM (a.k.a SecureROM) of iOS devices -- which is a low-level read-only ROM that being utilized during the booting stage of iOS devices. With the bugs that \inlinecode{checkm8} exploits and a proper implementation of Heap Feng-shui\footnote{Details refer to \textit{Section 3.3 iBoot and Heap Feng-shui.}}, you can execute any code at the BootROM level, thus carry out a successful jailbreak.
 
-Due to the read-only nature of SecureROM, the booting code are encoded in a hardware manner when a devices is manufactured. Thus it is impossible for Apple to release software security patches to alter the code within SecureROM, and therefore results in a upatchable hack. Also since a vast amount of iOS devices share BootROMs with similar architecture, the compatibility of a BootROM exploitation can be simultaneously widely applicable and long-standing.
+Due to the read-only nature of BootROM, the booting code are encoded in a hardware manner when a devices is manufactured. Thus it is impossible for Apple to release software security patches to alter the code within BootROM, and therefore results in a upatchable hack. Also since a vast amount of iOS devices share BootROMs with similar architecture, the compatibility of a BootROM exploitation can be simultaneously widely applicable and long-standing.
 
 \subsection{The lack of persistence}
 
-Though with many highlights, one significant limitation of checkm8 is its lack of persistence. Due to the mechnism of checkm8 is to exploit the SecureROM -- which is essentially a type of ROM -- a jailbroken device will back to its unexploited state once a reboot is performed; thus making checkm8 only a thethered jailbreak\footnote{The term `tethered jailbreak' is the antonym of `untethered jailbreak', where as the latter one refers to jailbreak methods which are so powerful that it is able to exploit a device even after rebooting, and without the aid of a connected computer.}. In a real-life scenrio, a solo\footnote{axi0mX admits that it is therotically possible to remotely jailbreaks -- thus `hacks' -- a checkm8 supported device by using a chain of exploits that available and unavailable to public. However it is extremly unlikely to happen due to technical mechnism of checkm8 and the mindset of malicious attackers. More about it in \textit{Section 2.3 The potential of malicious use}.}checkm8 jailbreak is only possible by turning the phone into DFU (Device Firmware Upgrade) mode and connect it to a computer (to run scripts that inject custom code).
+Though with many highlights, one significant limitation of \inlinecode{checkm8} is its lack of persistence. Due to the mechnism of \inlinecode{checkm8} is to exploit the BootROM -- which is essentially a type of ROM -- a jailbroken device will back to its unexploited state once a reboot is performed; thus making \inlinecode{checkm8} only a thethered jailbreak\footnote{The term `tethered jailbreak' is the antonym of `untethered jailbreak', where as the latter one refers to jailbreak methods which are so powerful that it is able to exploit a device even after rebooting, and without the aid of a connected computer.}. In a real-life scenrio, a solo\footnote{\inlinecode{axi0mX} admits that it is therotically possible to remotely jailbreaks -- thus `hacks' -- a \inlinecode{checkm8} supported device by using a chain of exploits that available and unavailable to public. However it is extremly unlikely to happen due to technical mechnism of \inlinecode{checkm8} and the mindset of malicious attackers. More about it in \textit{Section 2.3 The potential of malicious use}.}\inlinecode{checkm8} jailbreak is only possible by turning the phone into DFU (Device Firmware Upgrade) mode and connect it to a computer (to run scripts that inject custom code).
 
 \subsection{The potential of malicious uses}
 \subsubsection{The protection of Secure Enclave}
-One of the major concern is the fear of privacy breach due to the implementation of checkm8. According to axi0mX, devices the feature of Secure Enclave\footnote{Secure Enclave is a security feature implemented with a seperatly booted 4MB flashable AKF processor core called the secure enclave processor (SEP) . It performs biometric checks and decrypts the information -- thus the main operating system will not directly read the encription key stored in Secure Enclave's storage. It is only implemented within devices that have A7 chip or later (with Touch ID or Face ID).} will protect your data if the possessor of your phone cannot input the correct PIN, as it is stored in a seperate system and checkm8 is not effective to SEP. However, for devices with no such feature, the data within such device can be easily compromised as there is no seperate system protecting it.
+One of the major concern is the fear of privacy breach due to the implementation of \inlinecode{checkm8}. According to \inlinecode{axi0mX}, devices the feature of Secure Enclave\footnote{Secure Enclave is a security feature implemented with a seperatly booted 4MB flashable AKF processor core called the secure enclave processor (SEP) . It performs biometric checks and decrypts the information -- thus the main operating system will not directly read the encription key stored in Secure Enclave's storage. It is only implemented within devices that have A7 chip or later (with Touch ID or Face ID).} will protect your data if the possessor of your phone cannot input the correct PIN, as it is stored in a seperate system and \inlinecode{checkm8} is not effective to SEP. However, for devices with no such feature, the data within such device can be easily compromised as there is no seperate system protecting it.
 
-Note that axi0mX also mentions the fact that accessing the data of a device is not the only goal for an attacker. Thus although your data can be protected with Secure Enclave, therefore attacker might going after something else -- e.g. reselling the phone with a ``seemly fresh" system.
+Note that \inlinecode{axi0mX} also mentions the fact that accessing the data of a device is not the only goal for an attacker. Thus although your data can be protected with Secure Enclave, therefore attacker might going after something else -- e.g. reselling the phone with a ``seemly fresh" system.
 
 \subsubsection{Unencourage factors to attacker with malicious intents}
-In the pervious sections I have introduced the fact that to perform a checkm8 jailbreak, it is required to obtain physical access of the phone and connect to a computer with proper tools installed and scripts available. Thus checkm8 cannot be perfomed remotely by nature. axi0mX also emphasis the idea that it is unlikely that checkm8 will be vastly used for malicious purposes, as most attacker with malicious intents prefer to stay in distance -- e.g. utilizing phishing emails, webpages, Wi-Fi hotspots, etc. -- but not to be physically up-close. While checkm8's nature of requiring physical access makes close physical contact inevitable, and thus likely not prefered by malicious attackers.
+In the pervious sections I have introduced the fact that to perform a \inlinecode{checkm8} jailbreak, it is required to obtain physical access of the phone and connect to a computer with proper tools installed and scripts available. Thus \inlinecode{checkm8} cannot be perfomed remotely by nature. \inlinecode{axi0mX} also emphasis the idea that it is unlikely that \inlinecode{checkm8} will be vastly used for malicious purposes, as most attacker with malicious intents prefer to stay in distance -- e.g. utilizing phishing emails, webpages, Wi-Fi hotspots, etc. -- but not to be physically up-close. While \inlinecode{checkm8}'s nature of requiring physical access makes close physical contact inevitable, and thus likely not prefered by malicious attackers.
 
-\section{checkm8: the mechnism}
+\section{\inlinecode{checkm8}: the mechnism}
 \subsection{The booting mechnism of iOS}
+
+To establish a minimum understanding of \inlinecode{checkm8}, it is required to have a proper explosure to the booting mechnism of iOS devices. It is demonstrated as [\figurename{ \ref{figure_1}}].
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width = 0.6\textwidth]{figure_1}
+    \caption{The Secure Boot Chain of iOS}
+    \label{figure_1}
+\end{figure}
+
+The \inlinecode{Kernal} and \inlinecode{iOS} stages are rather self-explainatory, while the \inlinecode{BootROM} and \inlinecode{iBoot} are not. In short, every stage will perform its task, check for the integrity of the system, and load and prefer to move next stage. Thus, \inlinecode{BootROM} is responsible to execute the first several programs of the booting, check the integrity, and load necessary data to prepare for moving to the \inlinecode{iBoot} stage. Note that due to the similar funtionality, \inlinecode{BootROM} shares a significant amount of system and library code with \inlinecode{iBoot}.
+
+As introduced in pervious sections, \inlinecode{BootROM} is a read-only ROM with code encoded in a hareware manner when a device is manufactured; thus, it has the character of unwritable (and therefore unpatchable). Apple futhur implements security protocol to lock its (RAM) storage once the all executions within the \inlinecode{BootROM} stage are completed, thus it \textbf{should} also be unreadable to users.
+
 \subsection{Exploting SecureROM under DFU mode}
+
+Apple's philosophy is, if a program is unwritable and unreadable, then it is certainly safe. However, \inlinecode{checkm8} manage to exploit a design flaw under the Device Firmware Upgrade mode\footnote{DFU is part of the BootROM. It is designed to retore a device by running a temporary system carried in through USB.} of the devices. For the seek of readbility, here is a simplfied version\footnote{Infomation regarding \inlinecode{wLength} data length check, \inlinecode{stall, leak, no\_leak} asynchronous execution, and details regarding DFU main/interface code are intensionaly left out for simplification.} of the procedure of DFU mode:
+
+\begin{enumerate}
+	\item \inlinecode{usb\_dfu\_init()} is called, an comand-handling interface is registred and a buffer is allocated (hereinafter \inlinecode{io\_buffer}).
+	\item Send a \inlinecode{DFU\_DNLOAD} request which evetually calls out to the interface code.
+	\item DFU checks the requet package, if the request package is shorter than the allocated \inlinecode{io\_buffer}, the pointer to \inlinecode{io\_buffer} is passed to a global variable.
+    \item The requst package is copied into the \inlinecode{io\_buffer}.
+    \item DFU stores the \inlinecode{io\_buffer} into a device-specific address for loading operating system.
+    \item The USB code will reset all variable (including the global variable containing \inlinecode{io\_buffer}) and ready to handle new package.
+    \item Once all packages is handled, a \inlinecode{DFU\_DONE} request is sent and DFU will therefore free the \inlinecode{io\_buffer}), and then try to boot device with the system stored at the device-specific address. If the boot is success then you enter the temporary OS, otherwise \inlinecode{usb\_dfu\_init()} is called again and the device is back to the first stage.
+\end{enumerate}
+
+The bug is embedded in \textit{Step 3} and \textit{Step 7}. As you may send a \inlinecode{DFU\_DONE} request\footnote{By modifying the USB controller.} at \textit{Step 3} to bypass \textit{Step 4} to \textit{Step 6}. Altough the \inlinecode{io\_buffer} is freed in \textit{Step 7}, the global variable updated in \textit{Step 3} still points to the supposely freed \inlinecode{io\_buffer}, thus results a use-after-free scenrio.
+
 \subsection{iBoot and Heap Feng-shui}
+\inlinecode{checkm8} exploits the use-after-free flaw by taking several spots on the heap, as the SecureROM of iOS use \inlinecode{libc} version of \inlinecode{malloc()}, it is possible to induce some critical requests to store at the address of \inlinecode{io\_buffer} -- this kind of manuver is known as \textit{heap feng-shui}. Then, by altering the value within \inlinecode{io\_buffer}, we may complete a jailbreak.
+
+Note this is over simplification of what \inlinecode{checkm8} does. \inlinecode{checkm8} utilizes the    \inline{usb\_device\_io\_request} structure to construct a \inlinecode{callback-chain}, and eventurally gets the device to execute the exploit's payload stored in \inlinecode{io\_buffer}. \inlinecode{checkm8} also relies on the leaked \inlinecode{iBoot} source code to reverse-engineer the address of many functions within \inlinecode{BootROM} -- as the \inlinecode{iBoot} code is vastly shared with \inlinecode{BootROM}.
+
 
 \section{Summary}
-\subsection{The nature of the hack}
-\subsection{Some possible preventions}
+In summary, the philosophy of relying on confidentiality to protect the system security is a rather unrestful idea. As code and manual can be leaked by human -- in this case, the leaked of \inlinecode{iBoot} -- and the manufacture will not be able to refactor as the code is already in ROM. Instead, a comprehensive testing procedure should be enfored (even open source it for public review), and the manufacture should actively refactor its code based on public (e.g. redhat community) feedback.
 
 
 % https://zhuanlan.zhihu.com/p/87456653
-% https://github.com/axi0mX/ipwndfu
-% https://arstechnica.com/information-technology/2019/09/developer-of-checkm8-explains-why-idevice-jailbreak-exploit-is-a-game-changer/
+% https://github.com/\inlinecode{axi0mX}/ipwndfu
+% https://arstechnica.com/information-technology/2019/09/developer-of-\inlinecode{checkm8}-explains-why-idevice-jailbreak-exploit-is-a-game-changer/
 % https://m.habr.com/en/company/dsec/blog/472762/
 
 \end{document}
