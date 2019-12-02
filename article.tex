@@ -1,5 +1,4 @@
 \documentclass[10pt]{article}
-\linespread{1}
 \usepackage{setspace}
 \usepackage{amsmath,amssymb, amsthm}
 \usepackage{graphicx}
@@ -19,9 +18,12 @@
 \usepackage{url}
 \usepackage{enumitem}
 \usepackage{subfig}
-\usepackage{subcaption}
 \usepackage{wasysym}
 \newcommand{\inlinecode}{\texttt}
+
+
+\begin{document}
+\linespread{1}
 
 
 \title{\textbf{A Brief Introduction of checkm8} \\
@@ -29,7 +31,6 @@
 
 \author{Shaochen (Henry) ZHONG}
 \date{Due and submitted on December 5, 2019\\EECS 380, Dr. Ronald Loui}
-\begin{document}
 \maketitle
 
 \begin{abstract}
@@ -37,7 +38,9 @@
 \end{abstract}
 
 
-\begin{document}
+
+
+
 \vspace{0.5cm}
 {\hypersetup{hidelinks}
 \tableofcontents
@@ -111,16 +114,20 @@ The bug is embedded in \textit{Step 3} and \textit{Step 7}. As you may send a \i
 \subsection{iBoot and Heap Feng-shui}
 \inlinecode{checkm8} exploits the use-after-free flaw by taking several spots on the heap, as the SecureROM of iOS use \inlinecode{libc} version of \inlinecode{malloc()}, it is possible to induce some critical requests to store at the address of \inlinecode{io\_buffer} -- this kind of manuver is known as \textit{heap feng-shui}. Then, by altering the value within \inlinecode{io\_buffer}, we may complete a jailbreak.
 
-Note this is over simplification of what \inlinecode{checkm8} does. \inlinecode{checkm8} utilizes the    \inline{usb\_device\_io\_request} structure to construct a \inlinecode{callback-chain}, and eventurally gets the device to execute the exploit's payload stored in \inlinecode{io\_buffer}. \inlinecode{checkm8} also relies on the leaked \inlinecode{iBoot} source code to reverse-engineer the address of many functions within \inlinecode{BootROM} -- as the \inlinecode{iBoot} code is vastly shared with \inlinecode{BootROM}.
+Note this is over simplification of what \inlinecode{checkm8} does. \inlinecode{checkm8} utilizes the    \inlinecode{usb\_device\_io\_request} structure to construct a \inlinecode{callback-chain}, and eventurally gets the device to execute the exploit's payload stored in \inlinecode{io\_buffer}. \inlinecode{checkm8} also relies on the leaked \inlinecode{iBoot} source code to reverse-engineer the address of many functions within \inlinecode{BootROM} -- as the \inlinecode{iBoot} code is vastly shared with \inlinecode{BootROM}.
 
 
 \section{Summary}
 In summary, the philosophy of relying on confidentiality to protect system security is a rather unrestful idea. As code and manual can be leaked by human -- in this case, the leaking of \inlinecode{iBoot} -- and the manufacture will not be able to refactor as the code is already in ROM. Instead, a comprehensive testing procedure should be enforced (even open-source it for public review), and the manufacture should actively refactor its code based on public (e.g., whitehat community) feedback.
 
 
-% https://zhuanlan.zhihu.com/p/87456653
-% https://github.com/\inlinecode{axi0mX}/ipwndfu
-% https://arstechnica.com/information-technology/2019/09/developer-of-\inlinecode{checkm8}-explains-why-idevice-jailbreak-exploit-is-a-game-changer/
-% https://m.habr.com/en/company/dsec/blog/472762/
+
+\nocite{*}
+
+
+\raggedright
+\bibliography{references.bib}
+\bibliographystyle{plain}
+
 
 \end{document}
