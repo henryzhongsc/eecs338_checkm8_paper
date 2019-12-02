@@ -11,7 +11,7 @@
 \usepackage{listings}
 \usepackage[most]{tcolorbox}
 \usepackage{inconsolata}
-\usepackage[a4paper, total={6in, 9in}]{geometry}
+\usepackage[papersize={8.5in,11in}, total={6in, 9.5in}]{geometry}
 \usepackage{float}
 \usepackage{caption}
 \usepackage{esint}
@@ -20,6 +20,9 @@
 \usepackage{subfig}
 \usepackage{wasysym}
 \newcommand{\inlinecode}{\texttt}
+
+\usepackage{etoolbox}
+\patchcmd{\thebibliography}{\section*{\refname}}{}{}{}
 
 
 \begin{document}
@@ -121,10 +124,10 @@ Note this is over simplification of what \inlinecode{checkm8} does. \inlinecode{
 In summary, the philosophy of relying on confidentiality to protect system security is a rather unrestful idea. As code and manual can be leaked by human -- in this case, the leaking of \inlinecode{iBoot} -- and the manufacture will not be able to refactor as the code is already in ROM. Instead, a comprehensive testing procedure should be enforced (even open-source it for public review), and the manufacture should actively refactor its code based on public (e.g., whitehat community) feedback.
 
 
+\newpage
+\section{References}
 
 \nocite{*}
-
-
 \raggedright
 \bibliography{references.bib}
 \bibliographystyle{plain}
