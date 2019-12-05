@@ -1,6 +1,6 @@
 # EECS 338 `checkm8` Paper
 
-> Final paper for EECS 338, taught by Dr. Loui in Fall 2019.
+> Final 3-page paper for EECS 338, taught by Dr. Loui in Fall 2019.
 
 ---
 
