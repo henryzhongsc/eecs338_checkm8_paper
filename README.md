@@ -16,13 +16,13 @@ As an assignment for an undergraduate course, the depth of this paper is certain
 This GitHub repo is published mainly for proofreading / sharing the developmental process (as `git-diff` highlights the changes). Please read with cautions, and never hesitate to submit an issue to grill me.
 
 ---
-## Reference
+## References
 
-* [A Brief Analysis of the Epic iPhone Exploit: checkm8 | Gh0u1L5](https://zhuanlan.zhihu.com/p/87456653)
-* [ipwndfu: open-source jailbreaking tool for many iOS devices | axi0mX](https://github.com/axi0mX/ipwndfu)
-* [Developer of Checkm8 explains why iDevice jailbreak exploit is a game changer | Dan Goodin](https://arstechnica.com/information-technology/2019/09/developer-of-checkm8-explains-why-idevice-jailbreak-exploit-is-a-game-changer/)
-* [Technical analysis of the checkm8 exploit | a1exdandy](https://m.habr.com/en/company/dsec/blog/472762/)
+1. [Technical analysis of the checkm8 exploit | a1exdandy](https://m.habr.com/en/company/dsec/blog/472762/)
     * Must read if you actually want to understand the mechanism of `checkm8`.
-* [Apple Bootrom Bug: apollo.txt | littlelailo](https://gist.github.com/littlelailo/42c6a11d31877f98531f6d30444f59c4)
+2. [ipwndfu: open-source jailbreaking tool for many iOS devices | axi0mX](https://github.com/axi0mX/ipwndfu)
+3. [A Brief Analysis of the Epic iPhone Exploit: checkm8 | Gh0u1L5](https://zhuanlan.zhihu.com/p/87456653)
+4. [Developer of Checkm8 explains why iDevice jailbreak exploit is a game changer | Dan Goodin](https://arstechnica.com/information-technology/2019/09/developer-of-checkm8-explains-why-idevice-jailbreak-exploit-is-a-game-changer/)
+5. [Apple Bootrom Bug: apollo.txt | littlelailo](https://gist.github.com/littlelailo/42c6a11d31877f98531f6d30444f59c4)
 
 
